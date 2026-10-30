@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Latihan Ekstrem Ruangan Sempit</title>
+<style>
+  :root {
+    --bg: #0b0b0f;
+    --card: #14141c;
+    --card-hover: #1c1c27;
+    --accent: #ff4d00;
+    --accent2: #00e6b0;
+    --text: #f0f0f5;
+    --text-dim: #8e8e9e;
+    --border: #252532;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 18px 16px 50px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -30%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255, 77, 0, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0, 230, 176, 0.05) 0%, transparent 40%);
+    z-index: -1;
+    animation: ambient 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes ambient {
+    0% { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.1) rotate(3deg); }
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 26px 16px 22px;
+    background: linear-gradient(145deg, #16161f, #101017);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,77,0,0.12) 0%, transparent 55%);
+    animation: pulse 7s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  .header h1 {
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #ff4d00, #ff9500, #ff4d00);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  .header p {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    position: relative;
+  }
+
+  .badge {
+    display: inline-block;
+    background: linear-gradient(90deg, rgba(255,77,0,0.2), rgba(255,149,0,0.15));
+    color: #ff7a33;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 30px;
+    margin-top: 12px;
+    letter-spacing: 0.8px;
+    border: 1px solid rgba(255,77,0,0.3);
+    position: relative;
+    box-shadow: 0 0 20px rgba(255,77,0,0.15);
+  }
+
+  /* HARI INI CARD */
+  .today-card {
+    background: linear-gradient(145deg, #1a1a24, #14141c);
+    border-radius: 18px;
+    border: 1px solid rgba(255,77,0,0.35);
+    padding: 18px 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 25px rgba(255,77,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .today-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ff4d00, #ff9500);
+  }
+
+  .today-label {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .today-date {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .today-status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .status-latihan {
+    background: rgba(255,77,0,0.15);
+    color: #ff7a33;
+    border: 1px solid rgba(255,77,0,0.3);
+  }
+
+  .status-rest {
+    background: rgba(0,230,176,0.12);
+    color: var(--accent2);
+    border: 1px solid rgba(0,230,176,0.25);
+  }
+
+  .today-workout {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .today-workout span {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: 0.85rem;
+  }
+
+  /* ACCORDION */
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .acc-item {
+    background: var(--card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .acc-item.active {
+    border-color: rgba(255,77,0,0.5);
+    box-shadow: 0 0 0 1px rgba(255,77,0,0.15), 0 8px 30px rgba(255,77,0,0.08);
+  }
+
+  .acc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 17px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .acc-header:active {
+    background: var(--card-hover);
+  }
+
+  .acc-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-weight: 700;
+    font-size: 0.97rem;
+  }
+
+  .acc-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+
+  .icon-orange { background: rgba(255,77,0,0.18); }
+  .icon-green { background: rgba(0,230,176,0.15); }
+  .icon-blue { background: rgba(59,130,246,0.15); }
+  .icon-purple { background: rgba(168,85,247,0.15); }
+  .icon-red { background: rgba(239,68,68,0.15); }
+  .icon-yellow { background: rgba(234,179,8,0.15); }
+
+  .chevron {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-dim);
+  }
+
+  .acc-item.active .chevron {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  .acc-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .acc-body {
+    padding: 4px 18px 20px;
+  }
+
+  /* Nested */
+  .nested {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .nested-item {
+    background: #0f0f15;
+    border-radius: 12px;
+    border: 1px solid #22222e;
+    overflow: hidden;
+  }
+
+  .nested-item.active {
+    border-color: rgba(0,230,176,0.35);
+  }
+
+  .nested-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .nested-header:active {
+    background: #18181f;
+  }
+
+  .nested-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .nested-body {
+    padding: 0 15px 15px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+
+  .nested-item.active .nested-header {
+    color: var(--accent2);
+  }
+
+  ul, ol {
+    padding-left: 18px;
+    margin: 8px 0;
+  }
+
+  li {
+    margin-bottom: 7px;
+    color: var(--text-dim);
+  }
+
+  li strong {
+    color: var(--text);
+  }
+
+  .highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(0,230,176,0.12);
+    color: var(--accent2);
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin-right: 5px;
+    font-weight: 700;
+  }
+
+  /* Schedule list */
+  .schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid #22222e;
+    font-size: 0.9rem;
+  }
+
+  .schedule-item:last-child {
+    border-bottom: none;
+  }
+
+  .day-name {
+    font-weight: 600;
+    min-width: 70px;
+  }
+
+  .day-today {
+    color: var(--accent);
+  }
+
+  .day-type {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+
+  .day-type.latihan {
+    color: #ff7a33;
+  }
+
+  .day-type.rest {
+    color: var(--accent2);
+  }
+
+  /* Table */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83rem;
+  }
+
+  th, td {
+    padding: 11px 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: #12121a;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) {
+    background: rgba(255,255,255,0.015);
+  }
+
+  .ex-card {
+    background: #0f0f15;
+    border-radius: 11px;
+    padding: 13px 15px;
+    margin-bottom: 9px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .ex-card h4 {
+    font-size: 0.92rem;
+    margin-bottom: 3px;
+    color: var(--text);
+  }
+
+  .ex-card p {
+    font-size: 0.81rem;
+    color: var(--text-dim);
+  }
+
+  .tip {
+    margin-top: 28px;
+    padding: 18px 16px;
+    background: linear-gradient(135deg, rgba(255,77,0,0.12), rgba(0,230,176,0.08));
+    border-radius: 16px;
+    border: 1px solid rgba(255,77,0,0.25);
+    font-size: 0.9rem;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255,77,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    animation: sweep 5s ease-in-out infinite;
+  }
+
+  @keyframes sweep {
+    0% { left: -100%; }
+    40%, 100% { left: 130%; }
+  }
+
+  .tip strong {
+    color: #ff7a33;
+  }
+
+  .motto {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 18px;
+    letter-spacing: 0.3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>LATIHAN EKSTREM</h1>
+  <p>Ruangan Sempit + Alat Minim<br>(Tongkat + Beban)</p>
+  <div class="badge">WIBU NOLEP → KUAT & BAGUS</div>
+</div>
+
+<!-- HARI INI -->
+<div class="today-card" id="todayCard">
+  <div class="today-label">HARI INI</div>
+  <div class="today-date" id="todayDate">Memuat...</div>
+  <div class="today-status" id="todayStatus">-</div>
+  <div class="today-workout" id="todayWorkout">-</div>
+</div>
+
+<div class="accordion">
+
+  <!-- JADWAL MINGGU INI -->
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-title">
+        <div class="acc-icon icon-yellow">📅</div>
+        <span>Jadwal Minggu Ini</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="acc-content">
+      <div class="acc-body" id="weeklySchedule">
+        <!-- diisi oleh JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Prinsip Dasar -->
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-title">
+        <div class="acc-icon icon-orange">⚡</div>
+        <span>Prinsip Dasar (Wajib)</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="acc-content">
+      <div class="acc-body">
+        <ul>
+          <li><strong>Waktu total per sesi:</strong> 30–40 menit (termasuk warm-up).</li>
+          <li><strong>Frekuensi:</strong> 4 hari latihan + 3 hari recovery per minggu.</li>
+          <li><strong>Progressive overload:</strong> Setiap minggu naikkan beban / rep / set.</li>
+          <li><strong>Intensitas ekstrem:</strong> Istirahat antar set <span class="highlight">60–90 detik</span>.</li>
+          <li><strong>Ruangan sempit:</strong> Semua gerakan berdiri atau di lantai.</li>
+          <li><strong>Alat:</strong> Tongkat + beban (botol air / karung pasir / piringan).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Split Latihan -->
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-title">
+        <div class="acc-icon icon-green">🏋️</div>
+        <span>Detail Latihan</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="acc-content">
+      <div class="acc-body">
+        <div class="nested">
+          <div class="nested-item">
+            <div class="nested-header" onclick="toggleNested(this)">
+              <span>🔥 Warm-up (5 menit – Wajib)</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="nested-content">
+              <div class="nested-body">
+                <ol>
+                  <li>Jumping jack / high knees – 1 menit</li>
+                  <li>Bodyweight squat – 15×</li>
+                  <li>Arm circle + shoulder dislocate (tongkat) – 10×</li>
+                  <li>Hip hinge (tanpa beban) – 10×</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="nested-item">
+            <div class="nested-header" onclick="toggleNested(this)">
+              <span>💪 Strength (Senin & Kamis)</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="nested-content">
+              <div class="nested-body">
+                <p style="margin-bottom:10px;font-size:0.82rem;">3–4 set × 5–8 rep</p>
+                <div class="ex-card"><h4>1. Squat (tongkat di punggung / goblet)</h4><p>Fokus kedalaman & kontrol</p></div>
+                <div class="ex-card"><h4>2. Romanian Deadlift</h4><p>Tongkat di depan, hinge di pinggul</p></div>
+                <div class="ex-card"><h4>3. Overhead Press</h4><p>Tongkat di bahu → dorong ke atas</p></div>
+                <div class="ex-card"><h4>4. Bent-over Row</h4><p>Punggung lurus, tarik ke perut</p></div>
+                <div class="ex-card"><h4>5. Floor Press</h4><p>Berbaring, dorong tongkat ke atas</p></div>
+                <div class="ex-card"><h4>6. Reverse Lunge</h4><p>Tongkat di bahu, di tempat</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nested-item">
+            <div class="nested-header" onclick="toggleNested(this)">
+              <span>🔥 Hypertrophy + Conditioning (Selasa & Jumat)</span>
+              <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="nested-content">
+              <div class="nested-body">
+                <p style="margin-bottom:10px;font-size:0.82rem;">3–4 set × 10–15 rep</p>
+                <div class="ex-card"><h4>1. Goblet Squat</h4><p>Pegang ujung tongkat berbeban di depan dada</p></div>
+                <div class="ex-card"><h4>2. Single-arm Row</h4><p>Satu tangan, ganti sisi</p></div>
+                <div class="ex-card"><h4>3. Push Press / Strict Press</h4><p>Dorong ke atas</p></div>
+                <div class="ex-card"><h4>4. Romanian Deadlift (tempo lambat)</h4><p>Kontrol 3 detik turun</p></div>
+                <div class="ex-card"><h4>5. Curl + Overhead Extension (Superset)</h4><p>Bergantian tanpa istirahat panjang</p></div>
+                <div class="ex-card" style="border-left-color: var(--accent2);">
+                  <h4>6. Finisher (3–4 putaran)</h4>
+                  <p>• 20 squat + 15 push-up + 10 burpee<br>
+                     • atau 30 dtk mountain climber + 20 jump squat</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Progression -->
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-title">
+        <div class="acc-icon icon-blue">📈</div>
+        <span>Progression 8 Minggu</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="acc-content">
+      <div class="acc-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Minggu</th>
+                <th>Fokus</th>
+                <th>Catatan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1–2</td><td>Belajar form</td><td>Beban ringan, fokus teknik</td></tr>
+              <tr><td>3–4</td><td>Naikkan rep</td><td>Target 8–12 rep</td></tr>
+              <tr><td>5–6</td><td>Naikkan beban</td><td>Kurangi rep ke 6–10</td></tr>
+              <tr><td>7–8</td><td>Intensitas ekstrem</td><td>Tambah set / kurangi istirahat</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-dim);margin-top:12px;">
+          Setelah 8 minggu, ulangi cycle dengan beban lebih berat.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Recovery -->
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-title">
+        <div class="acc-icon icon-purple">🛌</div>
+        <span>Aturan Recovery</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="acc-content">
+      <div class="acc-body">
+        <ul>
+          <li>Tidur minimal <strong>7 jam</strong>.</li>
+          <li>Protein tinggi setiap hari (telur, ayam, tahu, tempe, susu).</li>
+          <li>Hari off: jalan kaki 20–30 menit atau stretching.</li>
+          <li>Kalau sangat lelah → turunkan 1 set, jangan skip total.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Keamanan -->
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-title">
+        <div class="acc-icon icon-red">⚠️</div>
+        <span>Catatan Keamanan</span>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="acc-content">
+      <div class="acc-body">
+        <ul>
+          <li>Jangan sakiti punggung. Form jelek → turunkan beban.</li>
+          <li>Mulai dari beban yang benar-benar bisa dikontrol.</li>
+          <li>Minum air cukup.</li>
+          <li>Ada cedera lama → konsultasi dulu.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="tip">
+  <strong>Konsisten 4 hari/minggu selama 3–4 bulan</strong><br>
+  + progressive overload + makan cukup = tubuh wibu nolep berubah nyata.
+</div>
+
+<p class="motto">No excuses. Just lift.</p>
+
+<script>
+  // ========== JADWAL LATIHAN ==========
+  // Senin & Kamis = Strength
+  // Selasa & Jumat = Hypertrophy
+  // Rabu, Sabtu, Minggu = Recovery
+
+  const schedule = {
+    0: { name: "Minggu", type: "rest", label: "Recovery / Active Rest", detail: "Jalan kaki / stretching / tidur cukup" },
+    1: { name: "Senin", type: "latihan", label: "Strength Day", detail: "Full Body Strength (3–4 set × 5–8 rep)" },
+    2: { name: "Selasa", type: "latihan", label: "Hypertrophy Day", detail: "Hypertrophy + Conditioning (10–15 rep)" },
+    3: { name: "Rabu", type: "rest", label: "Recovery", detail: "Istirahat total atau jalan kaki ringan" },
+    4: { name: "Kamis", type: "latihan", label: "Strength Day", detail: "Full Body Strength (3–4 set × 5–8 rep)" },
+    5: { name: "Jumat", type: "latihan", label: "Hypertrophy Day", detail: "Hypertrophy + Conditioning (10–15 rep)" },
+    6: { name: "Sabtu", type: "rest", label: "Recovery", detail: "Active recovery / stretching" }
+  };
+
+  function updateToday() {
+  const now = new Date(); // waktu perangkat (WIB Jawa Tengah)
+  const day = now.getDay(); // 0=Minggu ... 6=Sabtu
+
+  const dateStr = now.toLocaleDateString('id-ID', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const today = schedule[day];
+
+  document.getElementById('todayDate').textContent = dateStr;
+
+  const statusEl = document.getElementById('todayStatus');
+  statusEl.textContent = today.type === 'latihan' ? 'HARI LATIHAN' : 'HARI RECOVERY';
+  statusEl.className = 'today-status ' + (today.type === 'latihan' ? 'status-latihan' : 'status-rest');
+
+  document.getElementById('todayWorkout').innerHTML = 
+    today.label + '<br><span>' + today.detail + '</span>';
+
+  // ===== Jadwal Minggu (sudah diperbaiki) =====
+  let html = '';
+
+  // Senin - Sabtu (1-6)
+  for (let i = 1; i <= 6; i++) {
+    const d = schedule[i];
+    const isToday = (i === day);
+    html += '<div class="schedule-item">' +
+              '<div><span class="day-name' + (isToday ? ' day-today' : '') + '">' + d.name + (isToday ? ' •' : '') + '</span></div>' +
+              '<div class="day-type ' + d.type + '">' + d.label + '</div>' +
+            '</div>';
+  }
+
+  // Minggu (0)
+  const d0 = schedule[0];
+  const isToday0 = (day === 0);
+  html += '<div class="schedule-item">' +
+            '<div><span class="day-name' + (isToday0 ? ' day-today' : '') + '">' + d0.name + (isToday0 ? ' •' : '') + '</span></div>' +
+            '<div class="day-type ' + d0.type + '">' + d0.label + '</div>' +
+          '</div>';
+
+  document.getElementById('weeklySchedule').innerHTML = html;
+}
+
+  // ========== ACCORDION ==========
+  function toggleAcc(header) {
+    const item = header.parentElement;
+    const content = item.querySelector('.acc-content');
+    const isActive = item.classList.contains('active');
+
+    document.querySelectorAll('.acc-item').forEach(function(el) {
+      el.classList.remove('active');
+      const c = el.querySelector('.acc-content');
+      if (c) c.style.maxHeight = null;
+    });
+
+    if (!isActive) {
+      item.classList.add('active');
+      content.style.maxHeight = 'none';
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  }
+
+  function toggleNested(header) {
+    const item = header.parentElement;
+    const content = item.querySelector('.nested-content');
+    const isActive = item.classList.contains('active');
+
+    if (isActive) {
+      item.classList.remove('active');
+      content.style.maxHeight = null;
+    } else {
+      item.classList.add('active');
+      content.style.maxHeight = 'none';
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+
+    // Update parent height
+    const mainContent = item.closest('.acc-content');
+    if (mainContent) {
+      setTimeout(function() {
+        mainContent.style.maxHeight = 'none';
+        mainContent.style.maxHeight = mainContent.scrollHeight + 'px';
+      }, 40);
+      setTimeout(function() {
+        mainContent.style.maxHeight = 'none';
+        mainContent.style.maxHeight = mainContent.scrollHeight + 'px';
+      }, 350);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    updateToday();
+
+    // Buka "Jadwal Minggu Ini" secara default
+    const first = document.querySelector('.acc-item');
+    if (first) {
+      first.classList.add('active');
+      const content = first.querySelector('.acc-content');
+      content.style.maxHeight = 'none';
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  });
+</script>
+
+</body>
+</html>
